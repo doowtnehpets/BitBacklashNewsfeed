@@ -131,7 +131,7 @@ public final class NewsQueryUtils {
         // If JSON string is empty or null, return early
         if (TextUtils.isEmpty(newsArticleJSON)) return null;
 
-        // Create an emtpy NewsArticle list to add NewsArticle objects to
+        // Create an empty NewsArticle list to add NewsArticle objects to
         List<NewsArticle> newsArticles = new ArrayList<>();
 
         // Parse the JSON response and create new NewsArticles from it

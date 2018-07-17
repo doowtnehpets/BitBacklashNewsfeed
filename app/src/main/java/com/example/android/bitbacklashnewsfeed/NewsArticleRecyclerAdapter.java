@@ -90,27 +90,27 @@ public class NewsArticleRecyclerAdapter extends RecyclerView.Adapter<NewsArticle
 
             // Only seconds ago
             if (articleTime < 60000)
-                return (TimeUnit.MILLISECONDS.toSeconds(articleTime) + " " + contextToInflate.getString(R.string.time_secondsago));
+                return (TimeUnit.MILLISECONDS.toSeconds(articleTime) + " " + contextToInflate.getString(R.string.time_seconds_ago));
 
                 // 1 minute ago
             else if (articleTime < TimeUnit.MINUTES.toMillis(2))
-                return (TimeUnit.MILLISECONDS.toMinutes(articleTime) + " " + contextToInflate.getString(R.string.time_minuteago));
+                return (TimeUnit.MILLISECONDS.toMinutes(articleTime) + " " + contextToInflate.getString(R.string.time_minute_ago));
 
                 // 1-59 minutes
             else if (articleTime < TimeUnit.HOURS.toMillis(1))
-                return (TimeUnit.MILLISECONDS.toMinutes(articleTime) + " " + contextToInflate.getString(R.string.time_minutesago));
+                return (TimeUnit.MILLISECONDS.toMinutes(articleTime) + " " + contextToInflate.getString(R.string.time_minutes_ago));
 
                 // 1 hour
             else if (articleTime < TimeUnit.HOURS.toMillis(2))
-                return (TimeUnit.MILLISECONDS.toHours(articleTime) + " " + contextToInflate.getString(R.string.time_hourago));
+                return (TimeUnit.MILLISECONDS.toHours(articleTime) + " " + contextToInflate.getString(R.string.time_hour_ago));
 
                 // 2-23 hours
             else if (articleTime < TimeUnit.DAYS.toMillis(1))
-                return (TimeUnit.MILLISECONDS.toHours(articleTime) + " " + contextToInflate.getString(R.string.time_hoursago));
+                return (TimeUnit.MILLISECONDS.toHours(articleTime) + " " + contextToInflate.getString(R.string.time_hours_ago));
 
                 // 1 day
             else if (articleTime < TimeUnit.DAYS.toMillis(2))
-                return (TimeUnit.MILLISECONDS.toDays(articleTime) + " " + contextToInflate.getString(R.string.time_dayago));
+                return (TimeUnit.MILLISECONDS.toDays(articleTime) + " " + contextToInflate.getString(R.string.time_day_ago));
 
                 // full date
             else {

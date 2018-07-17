@@ -29,7 +29,7 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
     // Empty text view
     TextView emptyTextView;
     // Guardian API URL for articles, set it to a default if no section is chosen
-    private String guardian_url = "https://content.guardianapis.com/search?show-fields=thumbnail%2Cbyline&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850";
+    private String guardian_url = GuardianUrlBuilder.buildUrl(null);
 
     // Required empty constructor
     public NewsSectionFragment() {

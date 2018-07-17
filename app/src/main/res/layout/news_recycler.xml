@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
-    <!-- Empty view is only visible when the list has no items -->
+    <!-- Empty view only visible when the list has no items or there is no internet connection -->
     <TextView
         android:id="@+id/news_recycler_emptyview"
         android:layout_width="wrap_content"

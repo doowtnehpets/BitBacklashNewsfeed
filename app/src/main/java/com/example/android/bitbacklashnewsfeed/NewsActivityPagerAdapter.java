@@ -20,19 +20,19 @@ public class NewsActivityPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Games";
+                return context.getString(R.string.title_games);
             case 1:
-                return "Sports";
+                return context.getString(R.string.title_sports);
             case 2:
-                return "Culture";
+                return context.getString(R.string.title_culture);
             case 3:
-                return "Politics";
+                return context.getString(R.string.title_politics);
             case 4:
-                return "Books";
+                return context.getString(R.string.title_books);
             case 5:
-                return "Technology";
+                return context.getString(R.string.title_technology);
             default:
-                return "News";
+                return context.getString(R.string.title_news);
         }
     }
 

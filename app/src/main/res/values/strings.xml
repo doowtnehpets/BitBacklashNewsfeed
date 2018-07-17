@@ -2,19 +2,28 @@
     <string name="app_name">BitBacklash Newsfeed</string>
 
     <!-- news_article layout tools -->
-    <string name="tools_titleofarticle">This is just a really long Title of the Article, so I can see how it looks</string>
-    <string name="tools_dateofarticle">1 day ago</string>
-    <string name="tools_authorofarticle">By Stephen Wood</string>
+    <string name="tools_title_of_article">This is just a really long Title of the Article, so I can see how it looks</string>
+    <string name="tools_date_of_article">1 day ago</string>
+    <string name="tools_author_of_article">By Stephen Wood</string>
 
     <!-- Error Messages -->
     <string name="no_internet">No internet connectivity</string>
     <string name="no_articles_found">No news articles found</string>
 
     <!-- Time strings -->
-    <string name="time_secondsago">seconds ago</string>
-    <string name="time_minuteago">minute ago</string>
-    <string name="time_minutesago">minutes ago</string>
-    <string name="time_hourago">hour ago</string>
-    <string name="time_hoursago">hours ago</string>
-    <string name="time_dayago">day ago</string>
+    <string name="time_seconds_ago">seconds ago</string>
+    <string name="time_minute_ago">minute ago</string>
+    <string name="time_minutes_ago">minutes ago</string>
+    <string name="time_hour_ago">hour ago</string>
+    <string name="time_hours_ago">hours ago</string>
+    <string name="time_day_ago">day ago</string>
+
+    <!-- Title strings -->
+    <string name="title_games">Games</string>
+    <string name="title_sports">Sports</string>
+    <string name="title_culture">Culture</string>
+    <string name="title_politics">Politics</string>
+    <string name="title_books">Books</string>
+    <string name="title_technology">Technology</string>
+    <string name="title_news">News</string>
 </resources>
