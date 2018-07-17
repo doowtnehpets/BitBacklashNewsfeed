@@ -1,5 +1,7 @@
 package com.example.android.bitbacklashnewsfeed;
 
+import android.graphics.Bitmap;
+
 public class NewsArticle {
 
     // Section ID of the article
@@ -17,8 +19,8 @@ public class NewsArticle {
     // Author of the article
     String byLine;
 
-    // Url to the thumbnail of the article
-    String thumbnail;
+    // Bitmap of the thumbnail of the article
+    Bitmap thumbnail;
 
     /**
      * Constructs a new {@link NewsArticle} object
@@ -30,7 +32,7 @@ public class NewsArticle {
      * @param byLine             Author of the article
      * @param thumbnail          Url to the thumbnail of the article
      */
-    public NewsArticle(String sectionId, String webPublicationDate, String webTitle, String webUrl, String byLine, String thumbnail) {
+    public NewsArticle(String sectionId, String webPublicationDate, String webTitle, String webUrl, String byLine, Bitmap thumbnail) {
         this.sectionId = sectionId;
         this.webPublicationDate = webPublicationDate;
         this.webTitle = webTitle;
@@ -59,7 +61,7 @@ public class NewsArticle {
         return byLine;
     }
 
-    public String getThumbnail() {
+    public Bitmap getThumbnail() {
         return thumbnail;
     }
 }

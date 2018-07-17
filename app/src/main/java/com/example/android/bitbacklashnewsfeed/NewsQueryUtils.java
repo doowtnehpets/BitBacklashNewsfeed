@@ -1,6 +1,8 @@
 package com.example.android.bitbacklashnewsfeed;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -158,7 +160,7 @@ public final class NewsQueryUtils {
                 String thumbnail = jsonObjectFields.optString("thumbnail");
 
                 // Add a new NewsArticle from the data
-                newsArticles.add(new NewsArticle(sectionId, webPublicationDate, webTitle, webUrl, byLine, thumbnail));
+                newsArticles.add(new NewsArticle(sectionId, webPublicationDate, webTitle, webUrl, byLine, downloadBitmap(thumbnail)));
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the JSON results", e);
@@ -186,5 +188,23 @@ public final class NewsQueryUtils {
         }
 
         return extractFeatureFromJson(jsonResponse);
+    }
+
+    /**
+     * Load an image from a URL and return a {@link Bitmap}
+     *
+     * @param url string of the URL link to the image
+     * @return Bitmap of the image
+     */
+    private static Bitmap downloadBitmap(String url) {
+        Bitmap bitmap = null;
+        try {
+            InputStream inputStream = new URL(url).openStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+
+        return bitmap;
     }
 }
