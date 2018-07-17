@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimaryBackground"
     android:orientation="vertical"
     tools:context=".NewsActivity">
 
@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryLight"
-        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabMode="scrollable"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@color/colorPrimaryDark" />
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabTextColor="@android:color/white" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
