@@ -6,4 +6,6 @@
     <string name="tools_dateofarticle">2018-07-15</string>
     <string name="tools_sectionofarticle">Games</string>
     <string name="tools_authorofarticle">By Stephen Wood</string>
+    <string name="no_internet">No internet connectivity</string>
+    <string name="no_articles_found">No news articles found</string>
 </resources>
