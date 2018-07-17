@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BitBacklash Newsfeed</string>
+
+    <!-- news_article layout tools -->
+    <string name="tools_titleofarticle">This is just a really long Title of the Article, so I can see how it looks</string>
+    <string name="tools_dateofarticle">2018-07-15</string>
+    <string name="tools_sectionofarticle">Games</string>
+    <string name="tools_authorofarticle">By Stephen Wood</string>
 </resources>

@@ -22,8 +22,9 @@
                 android:id="@+id/article_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                tools:text="Title of Article" />
+                android:gravity="center"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                tools:text="@string/tools_titleofarticle" />
 
             <!-- Thumbnail below the title -->
             <android.support.v7.widget.AppCompatImageView
@@ -48,7 +49,7 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    tools:text="2018-07-15" />
+                    tools:text="@string/tools_dateofarticle" />
 
                 <TextView
                     android:id="@+id/article_section"
@@ -57,7 +58,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    tools:text="Games" />
+                    tools:text="@string/tools_sectionofarticle" />
 
                 <TextView
                     android:id="@+id/article_author"
@@ -66,7 +67,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    tools:text="By Stephen Wood" />
+                    tools:text="@string/tools_authorofarticle" />
 
             </LinearLayout>
 

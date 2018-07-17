@@ -204,7 +204,6 @@ public final class NewsQueryUtils {
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
         }
-
         return bitmap;
     }
 }

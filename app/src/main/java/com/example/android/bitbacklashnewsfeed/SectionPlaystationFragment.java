@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class SectionPlaystationFragment extends Fragment implements LoaderManage
     // NewsArticleRecyclerAdapter
     private NewsArticleRecyclerAdapter newsArticleRecyclerAdapter;
 
+    // The Progress Bar
+    ProgressBar progressBar;
+
     // Required empty constructor
     public SectionPlaystationFragment() {
     }
@@ -37,6 +41,8 @@ public class SectionPlaystationFragment extends Fragment implements LoaderManage
 
         // Grab the news_recyclerview from the layout and set fixed size and set the layout manager
         recyclerView = rootView.findViewById(R.id.news_recyclerview);
+
+        progressBar = rootView.findViewById(R.id.news_recycler_progressbar);
 
         getLoaderManager().initLoader(1, null, this);
 
@@ -50,6 +56,11 @@ public class SectionPlaystationFragment extends Fragment implements LoaderManage
 
     @Override
     public void onLoadFinished(Loader<List<NewsArticle>> loader, List<NewsArticle> newsArticles) {
+
+        // Hide the progress bar
+        progressBar.setVisibility(View.GONE);
+
+        // Set the recycler adapter
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsArticleRecyclerAdapter = new NewsArticleRecyclerAdapter(getContext(), newsArticles);

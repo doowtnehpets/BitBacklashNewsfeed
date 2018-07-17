@@ -45,8 +45,11 @@ public class NewsArticleRecyclerAdapter extends RecyclerView.Adapter<NewsArticle
         holder.textViewDate.setText(currentArticle.getWebPublicationDate());
         holder.textViewSection.setText(currentArticle.getSectionId());
         holder.textViewAuthor.setText(currentArticle.getByLine());
-        holder.imageViewThumbnail.setImageBitmap(currentArticle.getThumbnail());
-        holder.webUrl = Uri.parse(currentArticle.webUrl);
+
+        if (currentArticle.getThumbnail() != null)
+            holder.imageViewThumbnail.setImageBitmap(currentArticle.getThumbnail());
+
+        holder.webUrl = Uri.parse(currentArticle.getWebUrl());
     }
 
     // Return the total number of articles

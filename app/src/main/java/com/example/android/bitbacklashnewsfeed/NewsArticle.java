@@ -5,22 +5,22 @@ import android.graphics.Bitmap;
 public class NewsArticle {
 
     // Section ID of the article
-    String sectionId;
+    private String sectionId;
 
     // Publication date for the article
-    String webPublicationDate;
+    private String webPublicationDate;
 
     // Title of the article
-    String webTitle;
+    private String webTitle;
 
     // Url of the article
-    String webUrl;
+    private String webUrl;
 
     // Author of the article
-    String byLine;
+    private String byLine;
 
     // Bitmap of the thumbnail of the article
-    Bitmap thumbnail;
+    private Bitmap thumbnail;
 
     /**
      * Constructs a new {@link NewsArticle} object
