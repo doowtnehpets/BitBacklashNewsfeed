@@ -44,31 +44,31 @@ public class NewsActivityPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 // Games
-                bundle.putString("url", "https://content.guardianapis.com/search?show-fields=thumbnail%2Cbyline&section=games&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850");
+                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_GAMES));
                 break;
             case 1:
                 // Sports
-                bundle.putString("url", "https://content.guardianapis.com/search?section=sport&show-fields=thumbnail%2Cbyline&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850");
+                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_SPORTS));
                 break;
             case 2:
                 // Culture
-                bundle.putString("url", "https://content.guardianapis.com/search?section=culture&show-fields=thumbnail%2Cbyline&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850");
+                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_CULTURE));
                 break;
             case 3:
                 // Politics
-                bundle.putString("url", "https://content.guardianapis.com/search?section=politics&show-fields=thumbnail%2Cbyline&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850");
+                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_POLITICS));
                 break;
             case 4:
                 // Books
-                bundle.putString("url", "https://content.guardianapis.com/search?section=books&show-fields=thumbnail%2Cbyline&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850");
+                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_BOOKS));
                 break;
             case 5:
                 // Technology
-                bundle.putString("url", "https://content.guardianapis.com/search?section=technology&show-fields=thumbnail%2Cbyline&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850");
+                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_TECHNOLOGY));
                 break;
             default:
                 // News
-                bundle.putString("url", "https://content.guardianapis.com/search?show-fields=thumbnail%2Cbyline&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850");
+                bundle.putString("url", GuardianUrlBuilder.buildUrl(null));
         }
 
         // Attach the bundle to the fragment and return that
