@@ -16,26 +16,27 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
-public class SectionPlaystationFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<NewsArticle>> {
-
-    // Guardian API URL for playstation articles
-    private static String PLAYSTATION_URL = "https://content.guardianapis.com/search?show-fields=thumbnail%2Cbyline&section=games&q=playstation&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850";
+public class NewsSectionFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<NewsArticle>> {
 
     // The Recycler view
     RecyclerView recyclerView;
-
+    // The Progress Bar
+    ProgressBar progressBar;
+    // Guardian API URL for playstation articles, set it to a default if no section is chosen
+    private String guardian_url = "https://content.guardianapis.com/search?show-fields=thumbnail%2Cbyline&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850";
     // NewsArticleRecyclerAdapter
     private NewsArticleRecyclerAdapter newsArticleRecyclerAdapter;
 
-    // The Progress Bar
-    ProgressBar progressBar;
-
     // Required empty constructor
-    public SectionPlaystationFragment() {
+    public NewsSectionFragment() {
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Check if a string was supplied for a different URL and use that instead if so
+        String suppliedUrl = getArguments().getString("url");
+        if (!suppliedUrl.isEmpty()) guardian_url = suppliedUrl;
+
         // Inflate the view with the news_recycler
         View rootView = inflater.inflate(R.layout.news_recycler, container, false);
 
@@ -51,7 +52,7 @@ public class SectionPlaystationFragment extends Fragment implements LoaderManage
 
     @Override
     public Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
-        return new NewsArticleLoader(getContext(), PLAYSTATION_URL);
+        return new NewsArticleLoader(getContext(), guardian_url);
     }
 
     @Override
