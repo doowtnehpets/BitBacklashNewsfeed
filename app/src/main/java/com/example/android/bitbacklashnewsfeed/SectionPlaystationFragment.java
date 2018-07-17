@@ -1,25 +1,30 @@
 package com.example.android.bitbacklashnewsfeed;
 
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SectionPlaystationFragment extends Fragment {
+public class SectionPlaystationFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<NewsArticle>> {
 
-    // List of Articles
-    List<NewsArticle> newsArticleList;
+    // Guardian API URL for playstation articles
+    private static String PLAYSTATION_URL = "https://content.guardianapis.com/search?show-fields=thumbnail%2Cbyline&section=games&q=playstation&api-key=85a473fc-b895-4de9-a6c5-16ae66dab850";
 
     // The Recycler view
     RecyclerView recyclerView;
+
+    // NewsArticleRecyclerAdapter
+    private NewsArticleRecyclerAdapter newsArticleRecyclerAdapter;
 
     // Required empty constructor
     public SectionPlaystationFragment() {
@@ -32,46 +37,27 @@ public class SectionPlaystationFragment extends Fragment {
 
         // Grab the news_recyclerview from the layout and set fixed size and set the layout manager
         recyclerView = rootView.findViewById(R.id.news_recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // Initialize the newsArticleList
-        newsArticleList = new ArrayList<>();
-
-        newsArticleList.add(new NewsArticle("Games",
-                "2018-07-15",
-                "Google is blah blah blah",
-                "https://google.com",
-                "By Stephen Wood",
-                "Thumbnail"));
-
-        newsArticleList.add(new NewsArticle("Games",
-                "2018-07-15",
-                "Yahoo is blah blah blah",
-                "https://yahoo.com",
-                "By Stephen Wood",
-                "Thumbnail"));
-
-        newsArticleList.add(new NewsArticle("Games",
-                "2018-07-15",
-                "Microsoft and stuff................",
-                "https://microsoft.com",
-                "By Stephen Wood",
-                "Thumbnail"));
-
-        newsArticleList.add(new NewsArticle("Games",
-                "2018-07-15",
-                "Some other stuff and stuff, dude!",
-                "https://live.com",
-                "By Stephen Wood",
-                "Thumbnail"));
-
-        // Create the recycler view adapter
-        NewsArticleRecyclerAdapter adapter = new NewsArticleRecyclerAdapter(getActivity(), newsArticleList);
-
-        // Set the adapter on the recycler view
-        recyclerView.setAdapter(adapter);
+        getLoaderManager().initLoader(1, null, this);
 
         return rootView;
+    }
+
+    @Override
+    public Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
+        return new NewsArticleLoader(getContext(), PLAYSTATION_URL);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<NewsArticle>> loader, List<NewsArticle> newsArticles) {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        newsArticleRecyclerAdapter = new NewsArticleRecyclerAdapter(getContext(), newsArticles);
+        recyclerView.setAdapter(newsArticleRecyclerAdapter);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<NewsArticle>> loader) {
+
     }
 }

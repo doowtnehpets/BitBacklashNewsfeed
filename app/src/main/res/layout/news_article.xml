@@ -17,26 +17,26 @@
             android:orientation="vertical"
             android:padding="@dimen/card_margin">
 
-            <!-- Thumbnail at the top -->
+            <!-- Title text above the thumbnail -->
+            <TextView
+                android:id="@+id/article_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                tools:text="Title of Article" />
+
+            <!-- Thumbnail below the title -->
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/article_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/card_margin"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/thumbnail_test" />
 
-            <!-- Text below the thumbnail -->
-            <TextView
-                android:id="@+id/article_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/card_margin"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-                tools:text="Title of Article" />
-
-            <!-- Bottom line date, section and author -->
+            <!-- Bottom line: date, section and author -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
