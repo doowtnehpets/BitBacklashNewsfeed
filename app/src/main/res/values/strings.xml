@@ -7,8 +7,8 @@
     <string name="tools_author_of_article">By Stephen Wood</string>
 
     <!-- Error Messages -->
-    <string name="no_internet">No internet connectivity</string>
-    <string name="no_articles_found">No news articles found</string>
+    <string name="no_internet">No internet connectivity. Connect to the internet and swipe down to refresh.</string>
+    <string name="no_articles_found">No news articles found. You can swipe down to try and refresh.</string>
 
     <!-- Time strings -->
     <string name="time_seconds_ago">seconds ago</string>
