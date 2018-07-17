@@ -4,9 +4,6 @@ import android.graphics.Bitmap;
 
 public class NewsArticle {
 
-    // Section ID of the article
-    private String sectionId;
-
     // Publication date for the article
     private String webPublicationDate;
 
@@ -25,24 +22,18 @@ public class NewsArticle {
     /**
      * Constructs a new {@link NewsArticle} object
      *
-     * @param sectionId          Section ID of the article
      * @param webPublicationDate Publication date for the article
      * @param webTitle           Title of the article
      * @param webUrl             Url of the article
      * @param byLine             Author of the article
      * @param thumbnail          Url to the thumbnail of the article
      */
-    public NewsArticle(String sectionId, String webPublicationDate, String webTitle, String webUrl, String byLine, Bitmap thumbnail) {
-        this.sectionId = sectionId;
+    public NewsArticle(String webPublicationDate, String webTitle, String webUrl, String byLine, Bitmap thumbnail) {
         this.webPublicationDate = webPublicationDate;
         this.webTitle = webTitle;
         this.webUrl = webUrl;
         this.byLine = byLine;
         this.thumbnail = thumbnail;
-    }
-
-    public String getSectionId() {
-        return sectionId;
     }
 
     public String getWebPublicationDate() {

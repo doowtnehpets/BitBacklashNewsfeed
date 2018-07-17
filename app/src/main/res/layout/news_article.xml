@@ -52,19 +52,10 @@
                     tools:text="@string/tools_dateofarticle" />
 
                 <TextView
-                    android:id="@+id/article_section"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    tools:text="@string/tools_sectionofarticle" />
-
-                <TextView
                     android:id="@+id/article_author"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="end"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                     tools:text="@string/tools_authorofarticle" />

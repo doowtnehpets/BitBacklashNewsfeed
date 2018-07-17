@@ -11,7 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class NewsArticleRecyclerAdapter extends RecyclerView.Adapter<NewsArticleRecyclerAdapter.NewsArticleViewHolder> {
 
@@ -27,6 +34,7 @@ public class NewsArticleRecyclerAdapter extends RecyclerView.Adapter<NewsArticle
         this.newsArticles = newsArticles;
     }
 
+    @NonNull
     @Override
     public NewsArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate and return the view holder
@@ -42,8 +50,7 @@ public class NewsArticleRecyclerAdapter extends RecyclerView.Adapter<NewsArticle
 
         // Bind the data to the viewholder views
         holder.textViewTitle.setText(currentArticle.getWebTitle());
-        holder.textViewDate.setText(currentArticle.getWebPublicationDate());
-        holder.textViewSection.setText(currentArticle.getSectionId());
+        holder.textViewDate.setText(formatDate(currentArticle.getWebPublicationDate()));
         holder.textViewAuthor.setText(currentArticle.getByLine());
 
         if (currentArticle.getThumbnail() != null)
@@ -56,6 +63,64 @@ public class NewsArticleRecyclerAdapter extends RecyclerView.Adapter<NewsArticle
     @Override
     public int getItemCount() {
         return newsArticles.size();
+    }
+
+    /**
+     * Format the date returned from the JSON parsing to something more readable
+     *
+     * @param date string from JSON parsing
+     * @return properly formatted date
+     */
+    private String formatDate(String date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
+
+        // Set the time zone to where the articles are published
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+        try {
+            // Parse the date and store as a Date object to calculate time since article was posted
+            Date articleDate = simpleDateFormat.parse(date);
+
+            // Grab an instance of the calendar to get the time
+            Calendar calendar = Calendar.getInstance();
+
+            // Calculate time since article was posted
+            long currentTime = calendar.getTimeInMillis();
+            long articleTime = currentTime - articleDate.getTime();
+
+            // Only seconds ago
+            if (articleTime < 60000)
+                return (TimeUnit.MILLISECONDS.toSeconds(articleTime) + " " + contextToInflate.getString(R.string.time_secondsago));
+
+                // 1 minute ago
+            else if (articleTime < TimeUnit.MINUTES.toMillis(2))
+                return (TimeUnit.MILLISECONDS.toMinutes(articleTime) + " " + contextToInflate.getString(R.string.time_minuteago));
+
+                // 1-59 minutes
+            else if (articleTime < TimeUnit.HOURS.toMillis(1))
+                return (TimeUnit.MILLISECONDS.toMinutes(articleTime) + " " + contextToInflate.getString(R.string.time_minutesago));
+
+                // 1 hour
+            else if (articleTime < TimeUnit.HOURS.toMillis(2))
+                return (TimeUnit.MILLISECONDS.toHours(articleTime) + " " + contextToInflate.getString(R.string.time_hourago));
+
+                // 2-23 hours
+            else if (articleTime < TimeUnit.DAYS.toMillis(1))
+                return (TimeUnit.MILLISECONDS.toHours(articleTime) + " " + contextToInflate.getString(R.string.time_hoursago));
+
+                // 1 day
+            else if (articleTime < TimeUnit.DAYS.toMillis(2))
+                return (TimeUnit.MILLISECONDS.toDays(articleTime) + " " + contextToInflate.getString(R.string.time_dayago));
+
+                // full date
+            else {
+                simpleDateFormat.applyPattern("MM/dd/yyyy");
+                return simpleDateFormat.format(articleDate);
+            }
+
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     // View holder for a particular article
@@ -71,7 +136,6 @@ public class NewsArticleRecyclerAdapter extends RecyclerView.Adapter<NewsArticle
             imageViewThumbnail = itemView.findViewById(R.id.article_thumbnail);
             textViewTitle = itemView.findViewById(R.id.article_title);
             textViewDate = itemView.findViewById(R.id.article_date);
-            textViewSection = itemView.findViewById(R.id.article_section);
             textViewAuthor = itemView.findViewById(R.id.article_author);
 
             // Set the onClick listener
@@ -85,4 +149,5 @@ public class NewsArticleRecyclerAdapter extends RecyclerView.Adapter<NewsArticle
             contextToInflate.startActivity(websiteIntent);
         }
     }
+
 }

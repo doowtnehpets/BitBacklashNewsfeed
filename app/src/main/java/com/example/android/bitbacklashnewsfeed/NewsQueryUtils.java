@@ -59,7 +59,7 @@ public final class NewsQueryUtils {
      *
      * @param inputStream input stream to convert to JSON response
      * @return string containing the JSON response
-     * @throws IOException
+     * @throws IOException if there's a problem reading from the stream
      */
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
@@ -83,7 +83,7 @@ public final class NewsQueryUtils {
      *
      * @param url URL to query
      * @return JSON string data
-     * @throws IOException
+     * @throws IOException if there's an IO Exception
      */
     private static String makeHttpRequest(URL url) throws IOException {
         // Set the response by default to be empty
@@ -149,7 +149,6 @@ public final class NewsQueryUtils {
                 JSONObject jsonObjectResultPosition = jsonArrayResults.getJSONObject(i);
 
                 // Grab each section for the JSON object to add to the array
-                String sectionId = jsonObjectResultPosition.getString("sectionId");
                 String webPublicationDate = jsonObjectResultPosition.getString("webPublicationDate");
                 String webTitle = jsonObjectResultPosition.getString("webTitle");
                 String webUrl = jsonObjectResultPosition.getString("webUrl");
@@ -160,7 +159,7 @@ public final class NewsQueryUtils {
                 String thumbnail = jsonObjectFields.optString("thumbnail");
 
                 // Add a new NewsArticle from the data
-                newsArticles.add(new NewsArticle(sectionId, webPublicationDate, webTitle, webUrl, byLine, downloadBitmap(thumbnail)));
+                newsArticles.add(new NewsArticle(webPublicationDate, webTitle, webUrl, byLine, downloadBitmap(thumbnail)));
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the JSON results", e);
@@ -206,4 +205,5 @@ public final class NewsQueryUtils {
         }
         return bitmap;
     }
+
 }
