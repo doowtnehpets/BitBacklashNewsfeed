@@ -62,8 +62,8 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
         setupSwipeRefresh();
 
         // If connected to the internet start loading the articles else show error message
-        if(connectedToInternet()) getLoaderManager().initLoader(1, null, this);
-        else{
+        if (connectedToInternet()) getLoaderManager().initLoader(1, null, this);
+        else {
             progressBar.setVisibility(View.GONE);
             emptyTextView.setText(R.string.no_internet);
         }
@@ -90,7 +90,7 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
         emptyTextView.setVisibility(View.GONE);
 
         // Set the recycler adapter if newsArticles isn't null, else show no articles found message
-        if(newsArticles != null && !newsArticles.isEmpty()){
+        if (newsArticles != null && !newsArticles.isEmpty()) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             NewsArticleRecyclerAdapter newsArticleRecyclerAdapter = new NewsArticleRecyclerAdapter(getContext(), newsArticles);
@@ -102,16 +102,16 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<NewsArticle>> loader) {
-        restartLoader();
     }
 
     /**
      * Checks if device is connected to the internet
+     *
      * @return true if connected or connecting, false if no connection
      */
-    private boolean connectedToInternet(){
+    private boolean connectedToInternet() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager == null) return false;
+        if (connectivityManager == null) return false;
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return (networkInfo != null && networkInfo.isConnectedOrConnecting());
     }
