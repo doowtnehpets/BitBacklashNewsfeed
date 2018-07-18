@@ -16,9 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -28,8 +26,6 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
     SwipeRefreshLayout swipeRefreshLayout;
     // The Recycler view
     RecyclerView recyclerView;
-    // The Progress Bar
-    ProgressBar progressBar;
     // Empty text view
     TextView emptyTextView;
     // Guardian API URL for articles, set it to a default if no section is chosen
@@ -50,12 +46,12 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
 
         // Grab the swipe refresh layout
         swipeRefreshLayout = rootView.findViewById(R.id.news_recycler_swiperefresh);
+        swipeRefreshLayout.setRefreshing(true);
 
         // Grab the news_recyclerview from the layout
         recyclerView = rootView.findViewById(R.id.news_recyclerview);
 
-        // Grab the progress bar and empty text view to hide or show those if data loads
-        progressBar = rootView.findViewById(R.id.news_recycler_progressbar);
+        // Grab the empty text view to hide or show those if data loads
         emptyTextView = rootView.findViewById(R.id.news_recycler_emptyview);
 
         // Set up swipe refresh
@@ -64,8 +60,9 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
         // If connected to the internet start loading the articles else show error message
         if (connectedToInternet()) getLoaderManager().initLoader(1, null, this);
         else {
-            progressBar.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
             emptyTextView.setText(R.string.no_internet);
+            emptyTextView.setVisibility(View.VISIBLE);
         }
 
         return rootView;
@@ -83,20 +80,22 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
         // Stop swipe refreshing animation
         swipeRefreshLayout.setRefreshing(false);
 
-        // Hide the progress bar
-        progressBar.setVisibility(View.GONE);
-
         // Hide the error message if it came up
         emptyTextView.setVisibility(View.GONE);
 
-        // Set the recycler adapter if newsArticles isn't null, else show no articles found message
+        // Set the recycler adapter if newsArticles isn't null, else show show 1 of 2 error messages
         if (newsArticles != null && !newsArticles.isEmpty()) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             NewsArticleRecyclerAdapter newsArticleRecyclerAdapter = new NewsArticleRecyclerAdapter(getContext(), newsArticles);
             recyclerView.setAdapter(newsArticleRecyclerAdapter);
+        } else if (!connectedToInternet()) {
+            emptyTextView.setText(R.string.no_internet);
+            emptyTextView.setVisibility(View.VISIBLE);
+
         } else {
             emptyTextView.setText(R.string.no_articles_found);
+            emptyTextView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -121,12 +120,15 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
      * restart the loader if internet is connected
      */
     private void restartLoader() {
-        if (connectedToInternet())
+        if (connectedToInternet()) {
+            swipeRefreshLayout.setRefreshing(true);
             getLoaderManager().restartLoader(1, null, this);
+        }
 
         else {
             swipeRefreshLayout.setRefreshing(false);
-            Toast.makeText(getContext(), R.string.no_internet, Toast.LENGTH_SHORT).show();
+            emptyTextView.setText(R.string.no_internet);
+            emptyTextView.setVisibility(View.VISIBLE);
         }
     }
 
