@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -127,8 +128,7 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
 
         else {
             swipeRefreshLayout.setRefreshing(false);
-            emptyTextView.setText(R.string.no_internet);
-            emptyTextView.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 
