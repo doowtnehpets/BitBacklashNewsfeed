@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,12 +24,17 @@ import java.util.List;
 
 public class NewsSectionFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<NewsArticle>> {
 
+    // Used to save the layout manager state
+    private static final String LAYOUTMANAGER_STATE = "layoutmanager_state";
     // Swipe refresh layout
     SwipeRefreshLayout swipeRefreshLayout;
     // The Recycler view
     RecyclerView recyclerView;
     // Empty text view
     TextView emptyTextView;
+    //Variables for saving the state and restoring
+    LinearLayoutManager layoutManager;
+    Parcelable layoutManagerState;
     // Guardian API URL for articles, set it to a default if no section is chosen
     private String guardian_url = GuardianUrlBuilder.buildUrl(null);
 
@@ -66,7 +72,36 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
             emptyTextView.setVisibility(View.VISIBLE);
         }
 
+        // If the savedInstanceState isn't null then grab the saved layout manager state
+        if (savedInstanceState != null)
+            layoutManagerState = savedInstanceState.getParcelable(LAYOUTMANAGER_STATE);
+
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Store the layout manager state if possible
+        if (layoutManager.onSaveInstanceState() != null) {
+            layoutManagerState = layoutManager.onSaveInstanceState();
+            outState.putParcelable(LAYOUTMANAGER_STATE, layoutManagerState);
+        }
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        layoutManager = new LinearLayoutManager(getContext());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        layoutManager = new LinearLayoutManager(getContext());
     }
 
     @NonNull
@@ -87,17 +122,20 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
         // Set the recycler adapter if newsArticles isn't null, else show show 1 of 2 error messages
         if (newsArticles != null && !newsArticles.isEmpty()) {
             recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setLayoutManager(layoutManager);
             NewsArticleRecyclerAdapter newsArticleRecyclerAdapter = new NewsArticleRecyclerAdapter(getContext(), newsArticles);
             recyclerView.setAdapter(newsArticleRecyclerAdapter);
         } else if (!connectedToInternet()) {
             emptyTextView.setText(R.string.no_internet);
             emptyTextView.setVisibility(View.VISIBLE);
-
         } else {
             emptyTextView.setText(R.string.no_articles_found);
             emptyTextView.setVisibility(View.VISIBLE);
         }
+
+        // Restore the layout manager state if it was previously saved
+        if (layoutManagerState != null)
+            layoutManager.onRestoreInstanceState(layoutManagerState);
     }
 
     @Override
@@ -124,9 +162,7 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
         if (connectedToInternet()) {
             swipeRefreshLayout.setRefreshing(true);
             getLoaderManager().restartLoader(1, null, this);
-        }
-
-        else {
+        } else {
             swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
@@ -140,6 +176,7 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
             @Override
             public void onRefresh() {
                 if (!getLoaderManager().hasRunningLoaders()) restartLoader();
+                layoutManagerState = null;
             }
         });
     }
