@@ -26,4 +26,27 @@
     <string name="title_books">Books</string>
     <string name="title_technology">Technology</string>
     <string name="title_news">News</string>
+
+    <!-- Settings menu -->
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Settings</string>
+
+    <!-- Setting - Number of Articles -->
+    <string name="settings_no_of_articles_label">Number of Articles (Max: 25)</string>
+    <string name="settings_no_of_articles_key" translatable="false">no_of_articles</string>
+    <string name="settings_no_of_articles_default" translatable="false">10</string>
+
+    <!-- Setting - order-by -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_value</string>
+
+    <!-- order-by newest option -->
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <!-- order-by oldest option -->
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
 </resources>

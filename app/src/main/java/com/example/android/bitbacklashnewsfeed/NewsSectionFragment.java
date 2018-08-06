@@ -2,9 +2,11 @@ package com.example.android.bitbacklashnewsfeed;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Collections;
 import java.util.List;
 
 public class NewsSectionFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<NewsArticle>> {
@@ -29,8 +32,12 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
     RecyclerView recyclerView;
     // Empty text view
     TextView emptyTextView;
+    // No of articles
+    int noOfArticles;
+    // Order by
+    String orderBy;
     // Guardian API URL for articles, set it to a default if no section is chosen
-    private String guardian_url = GuardianUrlBuilder.buildUrl(null);
+    private String guardian_url;
 
     // Required empty constructor
     public NewsSectionFragment() {
@@ -38,10 +45,6 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Check if a string was supplied for a different URL and use that instead if so
-        String suppliedUrl = getArguments().getString("url");
-        if (suppliedUrl != null && !suppliedUrl.isEmpty()) guardian_url = suppliedUrl;
-
         // Inflate the view with the news_recycler
         View rootView = inflater.inflate(R.layout.news_recycler, container, false);
 
@@ -72,6 +75,24 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
     @NonNull
     @Override
     public Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
+
+        // Load the shared preferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        // Get no of articles setting
+        noOfArticles = Integer.parseInt(sharedPreferences.getString(getString(R.string.settings_no_of_articles_key),
+                getString(R.string.settings_no_of_articles_default)));
+
+        // Get orderBy setting
+        orderBy = sharedPreferences.getString(getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        // Check if a string was supplied for a different URL and use that instead if so
+        String suppliedSection = getArguments().getString("section");
+        if (suppliedSection != null && !suppliedSection.isEmpty())
+            guardian_url = GuardianUrlBuilder.buildUrl(suppliedSection, noOfArticles);
+        else guardian_url = GuardianUrlBuilder.buildUrl(null, noOfArticles);
+
         return new NewsArticleLoader(getContext(), guardian_url);
     }
 
@@ -86,6 +107,10 @@ public class NewsSectionFragment extends Fragment implements LoaderManager.Loade
 
         // Set the recycler adapter if newsArticles isn't null, else show show 1 of 2 error messages
         if (newsArticles != null && !newsArticles.isEmpty()) {
+            // If order by is set to oldest, reverse the order of the returned articles
+            if (orderBy.equals(getString(R.string.settings_order_by_oldest_value)))
+                Collections.reverse(newsArticles);
+
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             NewsArticleRecyclerAdapter newsArticleRecyclerAdapter = new NewsArticleRecyclerAdapter(getContext(), newsArticles);

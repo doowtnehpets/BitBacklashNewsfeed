@@ -3,6 +3,7 @@ package com.example.android.bitbacklashnewsfeed;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -195,7 +196,8 @@ public final class NewsQueryUtils {
      * @param url string of the URL link to the image
      * @return Bitmap of the image
      */
-    private static Bitmap downloadBitmap(String url) {
+    private static Bitmap downloadBitmap(@Nullable String url) {
+        if (url == null) return null;
         Bitmap bitmap = null;
         try {
             InputStream inputStream = new URL(url).openStream();

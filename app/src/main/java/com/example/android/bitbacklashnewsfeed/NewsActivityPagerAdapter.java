@@ -44,31 +44,31 @@ public class NewsActivityPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 // Games
-                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_GAMES));
+                bundle.putString("section", GuardianUrlBuilder.SECTION_GAMES);
                 break;
             case 1:
                 // Sports
-                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_SPORTS));
+                bundle.putString("section", GuardianUrlBuilder.SECTION_SPORTS);
                 break;
             case 2:
                 // Culture
-                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_CULTURE));
+                bundle.putString("section", GuardianUrlBuilder.SECTION_CULTURE);
                 break;
             case 3:
                 // Politics
-                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_POLITICS));
+                bundle.putString("section", GuardianUrlBuilder.SECTION_POLITICS);
                 break;
             case 4:
                 // Books
-                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_BOOKS));
+                bundle.putString("section", GuardianUrlBuilder.SECTION_BOOKS);
                 break;
             case 5:
                 // Technology
-                bundle.putString("url", GuardianUrlBuilder.buildUrl(GuardianUrlBuilder.SECTION_TECHNOLOGY));
+                bundle.putString("section", GuardianUrlBuilder.SECTION_TECHNOLOGY);
                 break;
             default:
                 // News
-                bundle.putString("url", GuardianUrlBuilder.buildUrl(null));
+                break;
         }
 
         // Attach the bundle to the fragment and return that
