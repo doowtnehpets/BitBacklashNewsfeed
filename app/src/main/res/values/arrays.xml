@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Numbers array -->
+    <string-array name="settings_no_of_articles">
+        <item>@string/settings_no_of_articles_5</item>
+        <item>@string/settings_no_of_articles_10</item>
+        <item>@string/settings_no_of_articles_15</item>
+        <item>@string/settings_no_of_articles_20</item>
+        <item>@string/settings_no_of_articles_25</item>
+    </string-array>
+
+    <!-- Order by Array -->
     <string-array name="settings_order_by_labels">
         <item>@string/settings_order_by_newest_label</item>
         <item>@string/settings_order_by_oldest_label</item>

@@ -8,11 +8,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
-    // Maximum number of articles
-    public static final String MAX_ARTICLES = "25";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,13 +44,6 @@ public class SettingsActivity extends AppCompatActivity {
                     CharSequence[] labels = listPreference.getEntries();
                     preference.setSummary(labels[prefIndex]);
                 }
-            } else {
-                // If over the maximum number of articles throw an error message and don't set the value
-                if (Integer.parseInt(stringValue) > Integer.parseInt(MAX_ARTICLES)) {
-                    Toast.makeText(getActivity(), "Maximum number of articles is " + MAX_ARTICLES, Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-                preference.setSummary(stringValue);
             }
 
             return true;

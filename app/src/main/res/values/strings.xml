@@ -32,9 +32,16 @@
     <string name="settings_title">News Settings</string>
 
     <!-- Setting - Number of Articles -->
-    <string name="settings_no_of_articles_label">Number of Articles (Max: 25)</string>
+    <string name="settings_no_of_articles_label">Number of Articles</string>
     <string name="settings_no_of_articles_key" translatable="false">no_of_articles</string>
-    <string name="settings_no_of_articles_default" translatable="false">10</string>
+    <string name="settings_no_of_articles_default" translatable="false">@string/settings_no_of_articles_10</string>
+
+    <!-- no_of_articles options -->
+    <string name="settings_no_of_articles_5">5</string>
+    <string name="settings_no_of_articles_10">10</string>
+    <string name="settings_no_of_articles_15">15</string>
+    <string name="settings_no_of_articles_20">20</string>
+    <string name="settings_no_of_articles_25">25</string>
 
     <!-- Setting - order-by -->
     <string name="settings_order_by_label">Order By</string>

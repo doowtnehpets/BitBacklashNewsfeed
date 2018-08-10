@@ -9,11 +9,11 @@
         android:key="@string/settings_order_by_key"
         android:title="@string/settings_order_by_label" />
 
-    <EditTextPreference
+    <ListPreference
         android:defaultValue="@string/settings_no_of_articles_default"
-        android:inputType="numberDecimal"
+        android:entries="@array/settings_no_of_articles"
+        android:entryValues="@array/settings_no_of_articles"
         android:key="@string/settings_no_of_articles_key"
-        android:selectAllOnFocus="true"
         android:title="@string/settings_no_of_articles_label" />
 
 </PreferenceScreen>
